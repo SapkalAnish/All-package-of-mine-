@@ -1,0 +1,11 @@
+@EndUserText: {
+  label: 'Service Definition for ZAS_C_Connection'
+}
+@ObjectModel: {
+  leadingEntity: {
+    name: 'ZAS_C_Connection'
+  }
+}
+define service ZAS_CONNECTION provider contracts odata_v4_ui {
+  expose ZAS_C_CONNECTION as Connection1;
+}

@@ -1,0 +1,33 @@
+projection;
+strict ( 2 );
+use draft;
+
+define behavior for ZC_AS_TRAVEL alias travel
+
+use etag
+{
+
+  use create;
+  use update;
+  use delete;
+
+  use action issue_message external 'issuemessage';
+  use action cancel_travel as cancel;
+
+  use action Prepare;
+  use action Edit;
+  use action Activate;
+  use action Discard;
+  use action Resume;
+
+  use association _item { create; with draft; }
+}
+
+define behavior for ZC_AS_TravelItem
+use etag
+{
+  use update;
+  use delete;
+
+  use association _travel { with draft; }
+}

@@ -1,0 +1,57 @@
+managed implementation in class ZBP_R_AS_Connection unique;
+strict ( 2 );
+with draft;
+extensible;
+define behavior for ZAS_R_Connection alias Connection1
+persistent table ZASACONN
+extensible
+draft table ZASDCONN
+etag master LocalLastChangedAt
+lock master total etag LastChangedAt
+authorization master( global )
+{
+  field ( readonly )
+   UUID,
+   LocalCreatedBy,
+   LocalCreatedAt,
+   LocalLastChangedBy,
+   LocalLastChangedAt,
+   LastChangedAt;
+
+  field ( numbering : managed )
+   UUID;
+   field  ( readonly ) CityFrom , CityTo ,CountryFrom ,CountryTo;
+
+validation CheckSemanticKey on save { create; update; }
+validation CheckCarrierID on save { create; field CarrierID; }
+validation CheckOriginDestination on save { create; field AirportFromID , AirportToID; }
+determination getCities on save { field AirportFromID , AirportToID; }
+  create;
+  update;
+  delete;
+
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Edit;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for ZASACONN corresponding extensible
+  {
+    UUID = UUID;
+    CarrierID = CARRIER_ID;
+    ConnectionID = CONNECTION_ID;
+    AirportFromID = AIRPORT_FROM_ID;
+    CityFrom = CITY_FROM;
+    CountryFrom = COUNTRY_FROM;
+    AirportToID = AIRPORT_TO_ID;
+    CityTo = CITY_TO;
+    CountryTo = COUNTRY_TO;
+    LocalCreatedBy = LOCAL_CREATED_BY;
+    LocalCreatedAt = LOCAL_CREATED_AT;
+    LocalLastChangedBy = LOCAL_LAST_CHANGED_BY;
+    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+    LastChangedAt = LAST_CHANGED_AT;
+  }
+
+}

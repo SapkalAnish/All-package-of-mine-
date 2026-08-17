@@ -1,0 +1,74 @@
+@Metadata.layer: #CORE
+@UI: {
+    headerInfo: {
+        typeName: 'Travel',
+        typeNamePlural: 'Travels',
+        title: { type: #STANDARD, value: 'TravelId' },
+        description: { type: #STANDARD, value: 'Description' }
+    },
+    presentationVariant: [{
+        sortOrder: [{ by: 'TravelId', direction: #DESC }],
+        visualizations: [{ type: #AS_LINEITEM }]
+    }]
+}
+annotate view ZC_AS_TRAVEL with
+{
+    @UI.facet: [
+        { id: 'Travel', purpose: #STANDARD, type: #IDENTIFICATION_REFERENCE, label: 'Travel Details', position: 10 },
+        { id: 'TravelItem', purpose: #STANDARD, type: #LINEITEM_REFERENCE, targetElement: '_item', label: 'Travel Items', position: 20 }
+    ]
+
+    @UI.hidden: true
+    travel_uuid;
+
+    @UI.lineItem: [ { position: 10, label: 'Travel ID', importance: #HIGH } ]
+    @UI.identification: [ { position: 10 } ]
+    @UI.selectionField: [ { position: 10 } ]
+    TravelId;
+
+    @UI.lineItem: [ { position: 20, label: 'Agency ID' } ]
+    @UI.identification: [ { position: 20 } ]
+    @UI.selectionField: [ { position: 20 } ]
+    AgencyId;
+
+    @UI.lineItem: [ { position: 30, label: 'Customer ID' } ]
+    @UI.identification: [ { position: 30 } ]
+    @UI.selectionField: [ { position: 30 } ]
+    CustomerID;
+
+    @UI.lineItem: [ { position: 40, label: 'Begin Date', importance: #HIGH } ]
+    @UI.identification: [ { position: 40 } ]
+    @UI.selectionField: [ { position: 40 } ]
+    BeginDate;
+
+    @UI.lineItem: [ { position: 50, label: 'End Date' } ]
+    @UI.identification: [ { position: 50 } ]
+    EndDate;
+
+    @UI.hidden: true
+    CurrencyCode;
+
+    @UI.lineItem: [ { position: 60, label: 'Booking Fee' } ]
+    @UI.identification: [ { position: 60, label: 'Booking Fee' } ]
+    BookingFee;
+
+    @UI.lineItem: [ { position: 70, label: 'Total Price', importance: #HIGH } ]
+    @UI.identification: [ { position: 70, label: 'Total Price' } ]
+    TotalPrice;
+
+    @UI.lineItem: [ { position: 80, label: 'Description' } ]
+    @UI.identification: [ { position: 80 } ]
+    Description;
+
+    @UI: {
+        lineItem: [
+            { position: 90, label: 'Status', criticality: 'Status', importance: #HIGH },
+            { type: #FOR_ACTION, dataAction: 'issuemessage', label: 'Issue a Message' },
+            { type: #FOR_ACTION, dataAction: 'cancel', label: 'Cancel the Travel' }
+        ],
+        identification: [ { position: 90, importance: #HIGH } ],
+        selectionField: [ { position: 100 } ],
+        textArrangement: #TEXT_ONLY
+    }
+    Status;
+}

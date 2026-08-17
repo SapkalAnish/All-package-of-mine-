@@ -1,0 +1,42 @@
+managed implementation in class zbp_r_as_i_employee unique;
+strict ( 2 ); with draft;
+
+define behavior for ZR_AS_I_EMPLOYEE //alias <alias_name>
+persistent table zas_employees
+draft table zas_employees_d
+lock master total etag Lastchangedat
+authorization master ( instance )
+etag master Lastchangedat
+{
+  create ( authorization : global );
+  update;
+  delete;
+  field ( readonly , numbering : managed ) EmpUuid;
+  field (  readonly : update  )  empid;
+  field ( readonly ) Changedby, Lastchangedat;
+
+  validation validatesal on save { create; field Salary; }
+
+
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for zas_employees corresponding
+  {
+
+  empuuid = emp_uuid;
+  empid = empid;
+  fname = fname;
+  lname = lname;
+  salary = salary;
+  currencycode = currencycode;
+  dob = dob;
+  age = age;
+  changedby = changedby;
+  lastchangedat = lastchangedat;
+
+  }
+}

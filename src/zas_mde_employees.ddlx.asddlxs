@@ -1,0 +1,96 @@
+@Metadata.layer: #CORE
+
+@UI: {
+    headerInfo: {
+        typeName: 'Employee',
+        typeNamePlural: 'Employees',
+        title: { type: #STANDARD, value: 'Fname' },
+        description: { type: #STANDARD, value: 'Lname' }
+    },
+    presentationVariant: [{
+        sortOrder: [{ by: 'Empid', direction: #DESC }],
+        visualizations: [{ type: #AS_LINEITEM }]
+    }]
+}
+
+annotate entity ZC_AS_I_EMPLOYEES
+    with
+{
+    @UI.facet: [
+        {
+            id: 'GeneralInfo',
+            purpose: #STANDARD,
+            type: #COLLECTION,
+            label: 'General Information',
+            position: 10
+        },
+        {
+            id: 'EmployeeDetails',
+            purpose: #STANDARD,
+            parentId: 'GeneralInfo',
+            type: #FIELDGROUP_REFERENCE,
+            targetQualifier: 'EmpDetails',
+            label: 'Employee Details',
+            position: 10
+        }
+    ]
+
+    @UI.hidden: true
+    @EndUserText.label: 'Employee UUID'
+    EmpUuid;
+
+    @EndUserText.label: 'Employee ID'
+    @UI: {
+        lineItem: [ { position: 10, importance: #HIGH, label: 'Employee ID' } ],
+        fieldGroup: [ { qualifier: 'EmpDetails', position: 10, label: 'Employee ID' } ],
+        selectionField: [ { position: 10 } ]
+    }
+    Empid;
+
+    @EndUserText.label: 'First Name'
+    @UI: {
+        lineItem: [ { position: 20, label: 'First Name' } ],
+        fieldGroup: [ { qualifier: 'EmpDetails', position: 20, label: 'First Name' } ]
+    }
+    Fname;
+
+    @EndUserText.label: 'Last Name'
+    @UI: {
+        lineItem: [ { position: 30, label: 'Last Name' } ],
+        fieldGroup: [ { qualifier: 'EmpDetails', position: 30, label: 'Last Name' } ]
+    }
+    Lname;
+
+    @UI.hidden: true
+    @EndUserText.label: 'Currency Code'
+    Currencycode;
+
+    @EndUserText.label: 'Salary'
+    @UI: {
+        lineItem: [ { position: 40, label: 'Salary' } ],
+        fieldGroup: [ { qualifier: 'EmpDetails', position: 40, label: 'Salary' } ]
+    }
+    Salary;
+
+    @EndUserText.label: 'Date of Birth'
+    @UI: {
+        lineItem: [ { position: 50, label: 'Date of Birth' } ],
+        fieldGroup: [ { qualifier: 'EmpDetails', position: 50, label: 'Date of Birth' } ]
+    }
+    Dob;
+
+    @EndUserText.label: 'Age'
+    @UI: {
+        lineItem: [ { position: 60, label: 'Age' } ],
+        fieldGroup: [ { qualifier: 'EmpDetails', position: 60, label: 'Age' } ]
+    }
+    Age;
+
+    @EndUserText.label: 'Changed By'
+    @UI.fieldGroup: [ { qualifier: 'EmpDetails', position: 70, label: 'Changed By' } ]
+    Changedby;
+
+    @EndUserText.label: 'Last Changed At'
+    @UI.fieldGroup: [ { qualifier: 'EmpDetails', position: 80, label: 'Last Changed At' } ]
+    Lastchangedat;
+}

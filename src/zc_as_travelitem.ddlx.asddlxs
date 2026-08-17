@@ -1,0 +1,94 @@
+@Metadata.layer: #CORE
+@UI: {
+    headerInfo: {
+        typeName: 'Travel Item',
+        typeNamePlural: 'Travel Items',
+        title: { type: #STANDARD, value: 'BookingId' },
+        description: { type: #STANDARD, value: 'PassengerLastName' }
+    },
+    presentationVariant: [{
+        sortOrder: [{ by: 'BookingId', direction: #ASC }],
+        visualizations: [{ type: #AS_LINEITEM }]
+    }]
+}
+annotate entity ZC_AS_TravelItem
+    with
+{
+    @UI.facet: [
+        {
+            id: 'ItemGeneralInfo',
+            purpose: #STANDARD,
+            type: #COLLECTION,
+            label: 'Item Information',
+            position: 10
+        },
+        {
+            id: 'ItemDetails',
+            purpose: #STANDARD,
+            parentId: 'ItemGeneralInfo',
+            type: #FIELDGROUP_REFERENCE,
+            targetQualifier: 'ItemDetails',
+            label: 'Item Details',
+            position: 10
+        }
+    ]
+
+    @UI.hidden: true
+    @EndUserText.label: 'Item UUID'
+    ItemUuid;
+
+    @UI.hidden: true
+    @EndUserText.label: 'Agency ID'
+    AgencyId;
+
+    @UI.hidden: true
+    @EndUserText.label: 'Travel ID'
+    Travelid;
+
+    @EndUserText.label: 'Airline'
+    @UI: {
+        lineItem: [ { position: 10, importance: #HIGH, label: 'Airline' } ],
+        fieldGroup: [ { qualifier: 'ItemDetails', position: 10, label: 'Airline' } ],
+        selectionField: [ { position: 10 } ]
+    }
+    CarrierId;
+
+    @EndUserText.label: 'Connection'
+    @UI: {
+        lineItem: [ { position: 20, label: 'Connection' } ],
+        fieldGroup: [ { qualifier: 'ItemDetails', position: 20, label: 'Connection' } ]
+    }
+    ConnectionId;
+
+    @EndUserText.label: 'Flight Date'
+    @UI: {
+        lineItem: [ { position: 30, label: 'Flight Date' } ],
+        fieldGroup: [ { qualifier: 'ItemDetails', position: 30, label: 'Flight Date' } ]
+    }
+    FlightDate;
+
+    @EndUserText.label: 'Booking ID'
+    @UI: {
+        lineItem: [ { position: 40, label: 'Booking ID' } ],
+        fieldGroup: [ { qualifier: 'ItemDetails', position: 40, label: 'Booking ID' } ]
+    }
+    BookingId;
+
+    @EndUserText.label: 'First Name'
+    @UI: {
+        lineItem: [ { position: 50, label: 'First Name' } ],
+        fieldGroup: [ { qualifier: 'ItemDetails', position: 50, label: 'First Name' } ]
+    }
+    PassengerFirstName;
+
+    @EndUserText.label: 'Last Name'
+    @UI: {
+        lineItem: [ { position: 60, label: 'Last Name' } ],
+        fieldGroup: [ { qualifier: 'ItemDetails', position: 60, label: 'Last Name' } ]
+    }
+    PassengerLastName;
+
+    @EndUserText.label: 'Last Changed At'
+    @UI.fieldGroup: [ { qualifier: 'ItemDetails', position: 70, label: 'Last Changed At' } ]
+    Lastchangedat;
+}

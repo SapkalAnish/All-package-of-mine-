@@ -1,0 +1,4 @@
+@EndUserText.label: 'AS:SRD_EMPLOYEES'
+define service ZAS_SRD_EMPLOYEES {
+  expose ZC_AS_I_EMPLOYEES;
+}

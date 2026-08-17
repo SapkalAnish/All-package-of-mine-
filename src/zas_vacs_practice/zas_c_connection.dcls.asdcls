@@ -1,0 +1,6 @@
+@EndUserText.label: 'ZAS_C_Connection'
+@MappingRole: true
+define role ZAS_C_Connection {
+  grant select on ZAS_C_Connection
+  where INHERITING CONDITIONS FROM ENTITY ZAS_R_Connection REPLACING { ROOT WITH _BaseEntity };
+}
